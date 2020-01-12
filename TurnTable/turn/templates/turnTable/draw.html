@@ -1,0 +1,54 @@
+{% extends "./base.html" %} {% load static %} {% block content%}
+<main>
+    <div id='DrawThePrize'>
+        <h3>梅賽德斯·奔馳 祝您</h3>
+        <h1>新春快樂!</h1>
+    
+        <form action="{% url 'turn:rotate' %}" id='rotate' method='POST'>
+        
+            {% csrf_token %}
+            <div class="turntable-wrapper">
+                <div id="turntable-bg">
+                    <input type = 'hidden' name="userPhone" value="{{phoneNum}}" />
+                    <img src="{% static './turnTable/img/pointer.png' %}" alt="pointer" class="pointer" onclick="rotate()">
+                    <img src="{% static './turnTable/img/turntable.png' %}" alt="turntable"  class="turntable-base">
+                </div>
+            </div>
+        </form>
+    
+    
+        <h2>請點擊上方轉盤中央“開始抽獎”字樣進行抽獎</h2>
+        <p>每個手機號碼僅能進行一次抽獎，敬請理解。</p>
+        <div id="content">
+            <div class="input-wrapper blue">
+                
+                
+                <p class="input">您輸入的手機號碼為: <span id="userPhone" >{{phoneNum}}</span></p>
+            </div>
+        </div>
+    </div>
+    <!-- ---------------------------------------------------------------------------------------- -->
+    <div id='winThePrize'class="main-img-wrapper" style="background-image: url({% static 'turnTable/img/prize.jpg' %}); width: 100%; display:none">
+        
+        <div>
+        <h2 class="red">恭喜中獎！您贏得了 <br><span id='PrizeName'> the prize name </span></h2>
+        <p class="left"><br>展示圖片可能與實物不符，請以實物為準</p>
+        <div id="content">
+            <div class="input-wrapper red">
+                <p class="input">您輸入的手機號碼為: {{phoneNum}}</p>
+            </div>
+        </div>
+        </div>
+    </div> 
+
+    <!-- ---------------------------------------------------------------------------------------- -->		
+    
+    
+</main>
+{% endblock %} 
+
+{%block scripts%}
+
+<script src="{%static './turnTable/js/main.js' %}" defer></script>
+
+{% endblock%}
